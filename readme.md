@@ -103,4 +103,25 @@ Kept running overnight.
 Used this [MD cheat sheet](https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf)
 
 
+# Day 3 Protocol
+## Assembly visualisation
+![Image](./resourses/assembly_graph.png)
 
+We used Bandage software to open .fastg files (we obtained them after converting the final assembly .fa files).
+
+### Questions
+We see a lot of small contigs and a small number of big ones (more than 1000 bp).
+
+## Quality assessment of assembly
+
+    What is your N50 value? Why is this value relevant?
+    How many contigs are assembled?
+    What is the total length of the contigs?
+### N50
+![Image]()
+
+### Number of contigs
+![Image]()
+
+### Total length
+![Image]()
