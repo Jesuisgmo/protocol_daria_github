@@ -133,8 +133,8 @@ We see a lot of small contigs and a small number of big ones (more than 1000 bp)
     How many contigs are assembled?
     What is the total length of the contigs?
 ### N50
-![Image]()
-
+![Image](./resourses/Nx_plot.pdf.png)
+>N50 is low
 ### Number of contigs
 ![Image]()
 
@@ -231,5 +231,18 @@ anvi-merge /work_beegfs/sunam230/metagenomics/profiling/130305/PROFILE.db /work_
 ```
 
 ## Binning with Metabat2
+```bash
+anvi-cluster-contigs -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -C METABAT2 --driver metabat2 --just-do-it --log-file log-metabat2
 
-- 3 archaea bins
+anvi-summarize -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -o SUMMARY_METABAT2 -C METABAT2
+```
+## Binning with MaxBin2
+```bash
+
+```
+Results:
+[Metabat2 result](./resourses/index.html)
+[MaxBin2 result](./resourses/indexmaxbin.html)
+### Questions answers
+- 3 archaea bins in METABAT2
+- 1 archaea bin in MaxBin2
