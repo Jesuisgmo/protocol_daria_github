@@ -238,7 +238,9 @@ anvi-summarize -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/P
 ```
 ## Binning with MaxBin2
 ```bash
+anvi-cluster-contigs -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -C MAXBIN2 --driver maxbin2 --just-do-it --log-file log-maxbin2
 
+anvi-summarize -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -o SUMMARY_MAXBIN2 -C MAXBIN2
 ```
 Results:
 [Metabat2 result](./resourses/index.html)
@@ -246,3 +248,29 @@ Results:
 ### Questions answers
 - 3 archaea bins in METABAT2
 - 1 archaea bin in MaxBin2
+
+## Quality assessment of MAGs
+Estimate your genomes completeness and contamination levels.
+You can assess the quality of your bins by using
+```bash
+anvi-estimate-genome-completeness -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db -C METABAT2
+```
+If you want to check what collections you generated you can use:
+```bash
+anvi-estimate-genome-completeness -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db --list-collections
+```
+In interactive (ternimal + server):
+```bash
+anvi-interactive -p ./merged_profiles/PROFILE.db -c ../mapping/contigs.db -C METABAT2
+```
+
+### Questions
+    Which binning strategy gives you the best quality for the A R C H A E A bins??
+              Metabat2:   
+    domain   |   confidence |   % completion |   % redundancy |   num_splits |   total length |
+    ARCHAEA  |          0.3 |          38.16 |              0 |          135 |         443275 
+    ARCHAEA  |          0.3 |          48.68 |           9.21 |          353 |        1317425 
+    ARCHAEA  |            1 |          98.68 |           2.63 |          262 |        1818443 
+              MaxBin2:
+    ARCHAEA  |          0.8 |          94.74 |          73.68 |          922 |        3144170 |
+    How many A R C H A E A bins do you get that are of High Quality? How many B A C T E R I A bins do you get that are of High Quality?
