@@ -1,0 +1,8 @@
+genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
+METABAT__17-contigs	1970	1893	261	kingdom	0.99	0.95	0.0	0.0	0.0	0.83	0.79	True
+METABAT__17-contigs	1970	1893	261	phylum	0.98	0.94	0.0	0.0	0.0	0.83	0.79	True
+METABAT__17-contigs	1970	1893	261	class	0.98	0.94	0.0	0.0	0.0	0.83	0.79	True
+METABAT__17-contigs	1970	1893	261	order	0.97	0.93	0.0	0.0	0.0	0.84	0.78	True
+METABAT__17-contigs	1970	1893	261	family	0.96	0.92	0.0	0.0	0.0	0.84	0.78	True
+METABAT__17-contigs	1970	1893	261	genus	0.95	0.91	0.0	0.0	0.0	0.84	0.77	True
+METABAT__17-contigs	1970	1893	261	species	0.89	0.85	0.1	0.37	1.04	0.85	0.72	True
