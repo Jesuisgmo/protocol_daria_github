@@ -134,12 +134,11 @@ We see a lot of small contigs and a small number of big ones (more than 1000 bp)
     What is the total length of the contigs?
 ### N50
 ![Image](./resourses/Nx_plot.pdf.png)
->N50 is low
+>N50 is low (3014). It is which length
 ### Number of contigs
-![Image]()
-
+55837 
 ### Total length
-![Image]()
+142642422
 
 
 ## Genome Binning
@@ -274,3 +273,91 @@ anvi-interactive -p ./merged_profiles/PROFILE.db -c ../mapping/contigs.db -C MET
               MaxBin2:
     ARCHAEA  |          0.8 |          94.74 |          73.68 |          922 |        3144170 |
     How many A R C H A E A bins do you get that are of High Quality? How many B A C T E R I A bins do you get that are of High Quality?
+
+********************
+# Day 4 Protocol - Bin refinement
+## Chimera detection in MAGs
+ ```bash
+cd $WORK
+
+module load gcc12-env/12.1.0
+module load micromamba/1.3.1
+micromamba activate 00_gunc
+
+cd /work_beegfs/sunam230/metagenomics/profiling/ARCHAEA_BIN_REFINEMENT
+mkdir /work_beegfs/sunam230/metagenomics/profiling/06_gunc/
+
+for i in *.fa; do mkdir /work_beegfs/sunam230/metagenomics/profiling/06_gunc/"$i"_out; done
+
+for i in *.fa; do
+  gunc run -i "$i" -r $WORK/databases/gunc/gunc_db_progenomes2.1.dmnd --out_dir /work_beegfs/sunam230/metagenomics/profiling/06_gunc/"$i"_out --threads 8 --detailed_output
+done
+```
+
+> Visualize
+- #is the number of your bin
+```bash
+cd /work_beegfs/sunam###/metagenomics/06_gunc/METABAT__###-contigs.fa_out
+gunc plot -d ./diamond_output/METABAT__#-contigs.diamond.progenomes_2.1.out -g ./gene_calls/gene_counts.json
+```
+
+### QUESTIONS
+- Do you get A R C H A E A bins that are chimeric?
+  > yes, 40 and 23 a bit. But now we exclude only 40 as others are ok, but later on species clusterization we will take only 17
+
+genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
+MAXBIN__011-contigs	3829	3514	894	kingdom	1.0	0.92	0.65	0.03	0.06	0.87	0.8	False
+MAXBIN__011-contigs	3829	3514	894	phylum	0.97	0.89	0.0	0.0	0.0	0.88	0.78	True
+MAXBIN__011-contigs	3829	3514	894	class	0.96	0.88	0.0	0.0	0.0	0.89	0.78	True
+MAXBIN__011-contigs	3829	3514	894	order	0.95	0.87	0.0	0.0	0.0	0.89	0.77	True
+MAXBIN__011-contigs	3829	3514	894	family	0.95	0.87	0.0	0.0	0.0	0.89	0.77	True
+MAXBIN__011-contigs	3829	3514	894	genus	0.93	0.85	0.0	0.0	0.0	0.89	0.76	True
+MAXBIN__011-contigs	3829	3514	894	species	0.87	0.8	0.41	0.49	1.13	0.9	0.72	True
+
+genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
+METABAT__17-contigs	1970	1893	261	kingdom	0.99	0.95	0.0	0.0	0.0	0.83	0.79	True
+METABAT__17-contigs	1970	1893	261	phylum	0.98	0.94	0.0	0.0	0.0	0.83	0.79	True
+METABAT__17-contigs	1970	1893	261	class	0.98	0.94	0.0	0.0	0.0	0.83	0.79	True
+METABAT__17-contigs	1970	1893	261	order	0.97	0.93	0.0	0.0	0.0	0.84	0.78	True
+METABAT__17-contigs	1970	1893	261	family	0.96	0.92	0.0	0.0	0.0	0.84	0.78	True
+METABAT__17-contigs	1970	1893	261	genus	0.95	0.91	0.0	0.0	0.0	0.84	0.77	True
+METABAT__17-contigs	1970	1893	261	species	0.89	0.85	0.1	0.37	1.04	0.85	0.72	True
+
+genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
+METABAT__23-contigs	1551	1508	353	kingdom	1.0	0.97	0.0	0.0	0.0	0.96	0.93	True
+METABAT__23-contigs	1551	1508	353	phylum	1.0	0.97	0.0	0.0	0.0	0.96	0.93	True
+METABAT__23-contigs	1551	1508	353	class	0.99	0.97	0.0	0.0	0.0	0.96	0.93	True
+METABAT__23-contigs	1551	1508	353	order	0.99	0.97	0.0	0.0	0.0	0.96	0.93	True
+METABAT__23-contigs	1551	1508	353	family	0.99	0.96	0.0	0.0	0.0	0.96	0.93	True
+METABAT__23-contigs	1551	1508	353	genus	0.98	0.95	0.0	0.0	0.0	0.97	0.92	True
+METABAT__23-contigs	1551	1508	353	species	0.95	0.92	0.78	0.32	0.77	0.97	0.89	False
+
+genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
+METABAT__40-contigs	451	436	135	kingdom	1.0	0.97	1.0	0.05	0.1	0.96	0.93	False
+METABAT__40-contigs	451	436	135	phylum	1.0	0.96	1.0	0.04	0.09	0.96	0.93	False
+METABAT__40-contigs	451	436	135	class	0.99	0.96	1.0	0.04	0.08	0.97	0.93	False
+METABAT__40-contigs	451	436	135	order	0.99	0.96	1.0	0.04	0.08	0.97	0.93	False
+METABAT__40-contigs	451	436	135	family	0.98	0.95	1.0	0.03	0.06	0.97	0.92	False
+METABAT__40-contigs	451	436	135	genus	0.98	0.95	1.0	0.03	0.05	0.97	0.92	False
+METABAT__40-contigs	451	436	135	species	0.94	0.91	0.4	0.09	0.2	0.97	0.89	True
+
+- hint: look at the CSS score (explained in the lecture) and the column PASS GUNC in the tables outputs per bin in your gunc_output folder.
+  > CSS for METABAT_40 
+- In your own words (2 sentences max), explain what is a chimeric bin.
+  > It is a bin which contains genetic sequences from several taxa/strains which are closely related and hardly resolvable.
+  
+## Manual bin refinement
+
+Done! In interactive:
+```bash
+module load gcc12-env/12.1.0
+module load micromamba/1.3.1
+micromamba activate 00_anvio
+anvi-refine -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -C METABAT -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db --bin-id METABAT__17
+```
+
+  name        303    527   708
+METABAT__17 	8.23 	5.31 	3.49
+MAXBIN__011 	3.74 	3.18 	2.69
+METABAT__23 	3.71 	1.34 	2.46
+METABAT__40 	3.88 	0.05 	2.39
