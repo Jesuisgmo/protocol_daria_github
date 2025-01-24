@@ -305,41 +305,7 @@ gunc plot -d ./diamond_output/METABAT__#-contigs.diamond.progenomes_2.1.out -g .
 - Do you get A R C H A E A bins that are chimeric?
   > yes, 40 and 23 a bit. But now we exclude only 40 as others are ok, but later on species clusterization we will take only 17
 
-genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
-MAXBIN__011-contigs	3829	3514	894	kingdom	1.0	0.92	0.65	0.03	0.06	0.87	0.8	False
-MAXBIN__011-contigs	3829	3514	894	phylum	0.97	0.89	0.0	0.0	0.0	0.88	0.78	True
-MAXBIN__011-contigs	3829	3514	894	class	0.96	0.88	0.0	0.0	0.0	0.89	0.78	True
-MAXBIN__011-contigs	3829	3514	894	order	0.95	0.87	0.0	0.0	0.0	0.89	0.77	True
-MAXBIN__011-contigs	3829	3514	894	family	0.95	0.87	0.0	0.0	0.0	0.89	0.77	True
-MAXBIN__011-contigs	3829	3514	894	genus	0.93	0.85	0.0	0.0	0.0	0.89	0.76	True
-MAXBIN__011-contigs	3829	3514	894	species	0.87	0.8	0.41	0.49	1.13	0.9	0.72	True
-
-genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
-METABAT__17-contigs	1970	1893	261	kingdom	0.99	0.95	0.0	0.0	0.0	0.83	0.79	True
-METABAT__17-contigs	1970	1893	261	phylum	0.98	0.94	0.0	0.0	0.0	0.83	0.79	True
-METABAT__17-contigs	1970	1893	261	class	0.98	0.94	0.0	0.0	0.0	0.83	0.79	True
-METABAT__17-contigs	1970	1893	261	order	0.97	0.93	0.0	0.0	0.0	0.84	0.78	True
-METABAT__17-contigs	1970	1893	261	family	0.96	0.92	0.0	0.0	0.0	0.84	0.78	True
-METABAT__17-contigs	1970	1893	261	genus	0.95	0.91	0.0	0.0	0.0	0.84	0.77	True
-METABAT__17-contigs	1970	1893	261	species	0.89	0.85	0.1	0.37	1.04	0.85	0.72	True
-
-genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
-METABAT__23-contigs	1551	1508	353	kingdom	1.0	0.97	0.0	0.0	0.0	0.96	0.93	True
-METABAT__23-contigs	1551	1508	353	phylum	1.0	0.97	0.0	0.0	0.0	0.96	0.93	True
-METABAT__23-contigs	1551	1508	353	class	0.99	0.97	0.0	0.0	0.0	0.96	0.93	True
-METABAT__23-contigs	1551	1508	353	order	0.99	0.97	0.0	0.0	0.0	0.96	0.93	True
-METABAT__23-contigs	1551	1508	353	family	0.99	0.96	0.0	0.0	0.0	0.96	0.93	True
-METABAT__23-contigs	1551	1508	353	genus	0.98	0.95	0.0	0.0	0.0	0.97	0.92	True
-METABAT__23-contigs	1551	1508	353	species	0.95	0.92	0.78	0.32	0.77	0.97	0.89	False
-
-genome	n_genes_called	n_genes_mapped	n_contigs	taxonomic_level	proportion_genes_retained_in_major_clades	genes_retained_index	clade_separation_score	contamination_portion	n_effective_surplus_clades	mean_hit_identity	reference_representation_score	pass.GUNC
-METABAT__40-contigs	451	436	135	kingdom	1.0	0.97	1.0	0.05	0.1	0.96	0.93	False
-METABAT__40-contigs	451	436	135	phylum	1.0	0.96	1.0	0.04	0.09	0.96	0.93	False
-METABAT__40-contigs	451	436	135	class	0.99	0.96	1.0	0.04	0.08	0.97	0.93	False
-METABAT__40-contigs	451	436	135	order	0.99	0.96	1.0	0.04	0.08	0.97	0.93	False
-METABAT__40-contigs	451	436	135	family	0.98	0.95	1.0	0.03	0.06	0.97	0.92	False
-METABAT__40-contigs	451	436	135	genus	0.98	0.95	1.0	0.03	0.05	0.97	0.92	False
-METABAT__40-contigs	451	436	135	species	0.94	0.91	0.4	0.09	0.2	0.97	0.89	True
+![grafik](https://github.com/user-attachments/assets/bc49d366-ee42-4ac2-9bbb-329f60e331e0)
 
 - hint: look at the CSS score (explained in the lecture) and the column PASS GUNC in the tables outputs per bin in your gunc_output folder.
   > CSS for METABAT_40 
