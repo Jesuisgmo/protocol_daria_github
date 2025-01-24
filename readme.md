@@ -361,3 +361,21 @@ METABAT__17 	8.23 	5.31 	3.49
 MAXBIN__011 	3.74 	3.18 	2.69
 METABAT__23 	3.71 	1.34 	2.46
 METABAT__40 	3.88 	0.05 	2.39
+
+
+***********************
+# Day 5 Protocol
+## Taxonomic assignment
+```bash
+anvi-run-scg-taxonomy -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -T 20 -P 2
+
+anvi-estimate-scg-taxonomy -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db --metagenome-mode --compute-scg-coverages --update-profile-db-with-taxonomy > temp.txt
+
+anvi-summarize -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/PROFILE.db -c /work_beegfs/sunam230/metagenomics/mapping/contigs.db -o /work_beegfs/sunam230/metagenomics/mapping/profiling/SUMMARY_METABAT2_FINAL -C METABAT2
+
+```
+### QUESTIONS
+- Did you get a species assignment to the A R C H A E A bins previously identified?\
+> Yes, metabat 17 - methanoculleus sp012797575, metabat 23 - methanoculleus thermohydrogenotrophicum, metabat 40 - methanosarcina flavescens
+- Does the HIGH-QUALITY assignment of the bin need revision?\
+> Metabat 17 is and was a high-quality tier (comp: 98.68% to 90.79%, red ), Metabat 23 is and was low quality (comp 48.68% to 47.37%, red 9.21% to 0.00%), metabat 40 is and was low quality (38.16% comp, 0% red).
