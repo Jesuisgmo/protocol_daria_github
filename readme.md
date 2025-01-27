@@ -615,7 +615,8 @@ Check mulriqc_report.html
 - **Did we use Single or Paired end reads? Why?**
 > Paired for short reads, single for long reads, because that is the availiable data from sequencing, + see answers above
 - **Write down about the classification of genome we have used here**
-> d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Bacteroidaceae;g__Bacteroides;s__Bacteroides muris
+> d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Bacteroidaceae;g__Bacteroides;s__Bacteroides muris with ANI of 97.07% (probably different strain)
+
 > 
 > **Resource to take help from:**
 > 1. [Guide to bacterial genome assembly](https://github.com/rrwick/Perfect-bacterial-genome-tutorial/wiki)
