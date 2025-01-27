@@ -455,3 +455,168 @@ unicycler -1 $WORK/genomics/1_short_reads_qc/2_cleaned_reads/241155E_R1_clean.fa
 micromamba deactivate
 echo "---------Unicycler Assembly pipeline Completed Successfully---------"
 ```
+
+## QC of assembly
+### Quast
+```bash
+echo "---------Assembly Quality Check Started---------"
+cd $WORK
+## 4.1 Quast (5 minutes)
+module load gcc12-env/12.1.0
+module load micromamba
+eval "$(micromamba shell hook --shell=bash)"
+export MAMBA_ROOT_PREFIX=$WORK/.micromamba
+micromamba activate .micromamba/envs/04_quast
+
+quast.py $WORK/genomics/3_hybrid_assembly/assembly.fasta --circos -L --conserved-genes-finding --rna-finding \
+ --glimmer --use-all-alignments --report-all-metrics -o $WORK/genomics/3_hybrid_assembly/quast/ -t 16
+micromamba deactivate
+
+jobinfo
+```
+![Image](./resourses/quast-assembly-hybrid.png)
+
+### Checkm
+```bash
+module load gcc12-env/12.1.0
+module load micromamba
+eval "$(micromamba shell hook --shell=bash)"
+export MAMBA_ROOT_PREFIX=$WORK/.micromamba
+
+cd $WORK
+
+module load gcc12-env/12.1.0
+module load miniconda3/4.12.0
+module load micromamba/1.4.2
+## 4.2 CheckM
+micromamba activate .micromamba/envs/04_checkm
+cd $WORK/genomics/3_hybrid_assembly
+mkdir -p $WORK/genomics/3_hybrid_assembly/checkm
+checkm lineage_wf $WORK/genomics/3_hybrid_assembly/ $WORK/genomics/3_hybrid_assembly/checkm -x fasta --tab_table --file $WORK/genomics/3_hybrid_assembly/checkm/checkm_results -r -t 32
+checkm tree_qa $WORK/genomics/3_hybrid_assembly/checkm
+checkm qa $WORK/genomics/3_hybrid_assembly/checkm/lineage.ms $WORK/genomics/3_hybrid_assembly/checkm/ -o 1 > $WORK/genomics/3_hybrid_assembly/checkm/Final_table_01.csv
+checkm qa $WORK/genomics/3_hybrid_assembly/checkm/lineage.ms $WORK/genomics/3_hybrid_assembly/checkm/ -o 2 > $WORK/genomics/3_hybrid_assembly/checkm/final_table_checkm.csv
+micromamba deactivate
+
+jobinfo
+```
+
+#### Results
+
+> Bin Id           Marker lineage         # genomes   # markers   # marker sets   Completeness   Contamination   Strain heterogeneity   Genome size (bp)   # ambiguous bases   # scaffolds   # contigs   N50 (scaffolds)   N50 (contigs)   Mean scaffold length (bp)   Mean contig length (bp)   Longest scaffold (bp)   Longest contig (bp)     GC    GC std (scaffolds > 1kbp)   Coding density   Translation table   # predicted genes   0    1    2   3   4   5+  
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+> assembly   o__Bacteroidales (UID2657)      160         492           269           98.88            0.19               0.00               4454332                0                7            7           4332314          4332314                636333                     636333                  4332314                4332314         45.71              4.79                 88.90                11                 3904         3   488   1   0   0   0   
+![grafik](https://github.com/user-attachments/assets/8bb6952c-0ef9-487d-8e61-cd2027295790)
+
+
+### checkm2
+```bash
+module load gcc12-env/12.1.0
+module load micromamba
+eval "$(micromamba shell hook --shell=bash)"
+export MAMBA_ROOT_PREFIX=$WORK/.micromamba
+
+
+# 4.3 Checkm2
+# (can not work, maybe due to insufficient memory usage)
+cd $WORK
+micromamba activate .micromamba/envs/04_checkm2
+cd $WORK/genomics/3_hybrid_assembly
+mkdir -p $WORK/genomics/3_hybrid_assembly/checkm2
+checkm2 predict --threads 32 --input $WORK/genomics/3_hybrid_assembly/assembly.fasta --output-directory $WORK/genomics/3_hybrid_assembly/checkm2 --force
+micromamba deactivate
+echo "---------Assembly Quality Check Completed Successfully---------"
+
+jobinfo
+```
+
+
+#### Result
+![grafik](https://github.com/user-attachments/assets/eed38fb7-6389-48d8-91e0-ef43fd550ed2)
+
+## Bandage
+![bandage-assembly-hybrid](https://github.com/user-attachments/assets/774c8f3c-0d85-425f-964c-09cbd5eabb8f)
+
+## Prokka annotation
+
+```bash
+# 5 Annotate-----------------------------------------------------------
+echo "---------Prokka Genome Annotation Started---------"
+
+cd $WORK
+micromamba activate .micromamba/envs/05_prokka
+cd $WORK/genomics/3_hybrid_assembly
+# Prokka creates the output dir on its own
+prokka $WORK/genomics/3_hybrid_assembly/assembly.fasta --outdir $WORK/genomics/4_annotated_genome --kingdom Bacteria --addgenes --cpus 32
+micromamba deactivate
+echo "---------Prokka Genome Annotation Completed Successfully---------"
+
+jobinfo
+```
+
+## Classification GTDBTK
+```bash
+# 6 Classification-----------------------------------------------------------
+echo "---------GTDB Classification Started---------"
+# (can not work, maybe due to insufficient memory usage increase the ram in bash script)
+cd $WORK
+micromamba activate .micromamba/envs/06_gtdbtk
+conda env config vars set GTDBTK_DATA_PATH="$WORK/databases/gtdbtk/release220";
+cd $WORK
+micromamba activate .micromamba/envs/06_gtdbtk
+cd $WORK/genomics/4_annotated_genome
+mkdir -p $WORK/genomics/5_gtdb_classification
+echo "---------GTDB Classification will run now---------"
+gtdbtk classify_wf --cpus 12 --genome_dir $WORK/genomics/4_annotated_genome/ --out_dir $WORK/genomics/5_gtdb_classification --extension .fna --skip_ani_screen
+# reduce cpu and increase the ram in bash script in order to have best performance
+micromamba deactivate
+echo "---------GTDB Classification Completed Successfully---------"
+
+jobinfo
+```
+### Result
+d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Bacteroidaceae;g__Bacteroides;s__Bacteroides muris
+
+## MultiQC
+```bash
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=16G
+#SBATCH --time=0:20:00
+#SBATCH --job-name=multiqc
+#SBATCH --output=multiqc.out
+#SBATCH --error=multiqc.err
+#SBATCH --partition=base
+#SBATCH --reservation=biol217
+module load gcc12-env/12.1.0
+module load micromamba
+eval "$(micromamba shell hook --shell=bash)"
+export MAMBA_ROOT_PREFIX=$WORK/.micromamba
+cd $WORK
+micromamba activate 01_short_reads_qc
+multiqc -d $WORK/genomics/ -o $WORK/genomics/6_multiqc
+
+jobinfo
+```
+
+## Results
+Check mulriqc_report.html
+*******************
+
+# Questions
+
+- **How good is the quality of genome?**
+> Overall good!
+- **Why did we use Hybrid assembler?**
+> long reads can be used to cover the gaps or ambiguous short reads to improve the genome quality
+- **What is the difference between short and long reads?**
+> Short reads are short and usually read from both sides, long reads can be used to cover the gaps or ambiguous reads
+- **Did we use Single or Paired end reads? Why?**
+> Paired for short reads, single for long reads, because that is the availiable data from sequencing, + see answers above
+- **Write down about the classification of genome we have used here**
+> d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Bacteroidaceae;g__Bacteroides;s__Bacteroides muris
+> 
+> **Resource to take help from:**
+> 1. [Guide to bacterial genome assembly](https://github.com/rrwick/Perfect-bacterial-genome-tutorial/wiki)
+> 2. [Perfect-bacterial-genome-tutorial](https://github.com/rrwick/Perfect-bacterial-genome-tutorial/wiki)
