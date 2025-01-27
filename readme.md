@@ -345,3 +345,113 @@ anvi-summarize -p /work_beegfs/sunam230/metagenomics/profiling/merged_profiles/P
 > Yes, metabat 17 - methanoculleus sp012797575, metabat 23 - methanoculleus thermohydrogenotrophicum, metabat 40 - methanosarcina flavescens
 - Does the HIGH-QUALITY assignment of the bin need revision?\
 > Metabat 17 is and was a high-quality tier (comp: 98.68% to 90.79%, red ), Metabat 23 is and was low quality (comp 48.68% to 47.37%, red 9.21% to 0.00%), metabat 40 is and was low quality (38.16% comp, 0% red).
+
+
+*****************
+# Day 6 Protocol
+## Short reads qc
+```bash
+cd $WORK/genomics
+
+module load gcc12-env/12.1.0
+module load miniconda3/4.12.0
+module load micromamba/1.4.2
+micromamba activate 01_short_reads_qc
+
+ mkdir -p $WORK/genomics/1_short_reads_qc/1_fastqc_raw
+ for i in $WORK/genomics/0_raw_reads/short_reads/*.gz; do fastqc $i -o $WORK/genomics/1_short_reads_qc/1_fastqc_raw -t 16; done
+
+
+ mkdir -p $WORK/genomics/1_short_reads_qc/2_cleaned_reads
+ fastp -i $WORK/genomics/0_raw_reads/short_reads/241155E_R1.fastq.gz \
+  -I $WORK/genomics/0_raw_reads/short_reads/241155E_R2.fastq.gz \
+  -R $WORK/genomics/1_short_reads_qc/2_cleaned_reads/fastp_report \
+  -h $WORK/genomics/1_short_reads_qc/2_cleaned_reads/report.html \
+  -o $WORK/genomics/1_short_reads_qc/2_cleaned_reads/241155E_R1_clean.fastq.gz \
+  -O $WORK/genomics/1_short_reads_qc/2_cleaned_reads/241155E_R2_clean.fastq.gz -t 6 -q 25
+
+
+# 1.3 fastqc cleaned
+mkdir -p $WORK/genomics/1_short_reads_qc/3_fastqc_cleaned
+for i in $WORK/genomics/1_short_reads_qc/2_cleaned_reads/*.gz; do fastqc $i -o $WORK/genomics/1_short_reads_qc/3_fastqc_cleaned -t 12; done
+micromamba deactivate
+echo "---------short read cleaning completed successfully---------"
+```
+
+![Image](./resourses/r1bef.png)
+![Image](./resourses/r1af.png)
+
+### Questions
+
+- How Good is the read quality?
+> Overall good, as if it was already trimmed, very few reads under 25 phred score
+- How many reads do you had before trimming and how many do you have now?
+> R1 before: 	1639549, R1 after: 	1613392
+> R2 before: 1639549, R2 after: 	1613392
+- Did the quality of the reads improve after trimming?
+> A little, but sequence length distribution is not normal anymore
+
+
+**************
+## Long reads qc
+
+```bash
+module load gcc12-env/12.1.0
+module load miniconda3/4.12.0
+module load micromamba/1.4.2
+
+echo "---------long reads cleaning started---------"
+
+eval "$(micromamba shell hook --shell=bash)"
+micromamba activate 02_long_reads_qc
+
+# ## 2.1 Nanoplot raw
+# cd $WORK/genomics/0_raw_reads/long_reads/
+# mkdir -p $WORK/genomics/2_long_reads_qc/1_nanoplot_raw
+# NanoPlot --fastq $WORK/genomics/0_raw_reads/long_reads/*.gz \
+#  -o $WORK/genomics/2_long_reads_qc/1_nanoplot_raw -t 32 \
+#  --maxlength 40000 --minlength 1000 --plots kde --format png \
+#  --N50 --dpi 300 --store --raw --tsv_stats --info_in_report
+
+# ## 2.2 Filtlong
+# mkdir -p $WORK/genomics/2_long_reads_qc/2_cleaned_reads
+# filtlong --min_length 1000 --keep_percent 90 $WORK/genomics/0_raw_reads/long_reads/*.gz | gzip > $WORK/genomics/2_long_reads_qc/2_cleaned_reads/241155E_cleaned_filtlong.fastq.gz
+
+## 2.3 Nanoplot cleaned
+cd $WORK/genomics/2_long_reads_qc/2_cleaned_reads
+mkdir -p $WORK/genomics/2_long_reads_qc/3_nanoplot_cleaned
+NanoPlot --fastq $WORK/genomics/2_long_reads_qc/2_cleaned_reads/*.gz \
+ -o $WORK/genomics/2_long_reads_qc/3_nanoplot_cleaned -t 32 \
+ --maxlength 40000 --minlength 1000 --plots kde --format png \
+ --N50 --dpi 300 --store --raw --tsv_stats --info_in_report
+
+micromamba deactivate
+
+echo "---------long reads cleaning completed Successfully---------"
+
+jobinfo
+```
+
+### Questions
+
+- How Good is the long reads quality?
+> Reads >Q10: 	11186 (70.1%) 102.2Mb
+> Reads >Q15: 	1578 (9.9%) 12.8Mb
+> After cleaning: 
+> Reads >Q10: 	10521 (84.5%) 101.4Mb
+> Reads >Q15: 	1527 (12.3%) 12.7Mb
+- How many reads do you had before trimming and how many do you have now?
+> Before: 15963, after: 12446
+>
+**********
+
+## Assembly using Unicycler
+```bash
+echo "---------Unicycler Assembly pipeline started---------"
+micromamba activate 03_unicycler
+cd $WORK/genomics
+mkdir -p $WORK/genomics/3_hybrid_assembly
+unicycler -1 $WORK/genomics/1_short_reads_qc/2_cleaned_reads/241155E_R1_clean.fastq.gz -2 $WORK/genomics/1_short_reads_qc/2_cleaned_reads/241155E_R2_clean.fastq.gz -l $WORK/genomics/2_long_reads_qc/2_cleaned_reads/241155E_cleaned_filtlong.fastq.gz -o $WORK/genomics/3_hybrid_assembly/ -t 32
+micromamba deactivate
+echo "---------Unicycler Assembly pipeline Completed Successfully---------"
+```
