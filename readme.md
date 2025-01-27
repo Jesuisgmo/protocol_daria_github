@@ -607,7 +607,7 @@ Check mulriqc_report.html
 # Questions
 
 - **How good is the quality of genome?**
-> Overall good!
+> Overall very good! > 98.88% completeness, 0.19% contaminations
 - **Why did we use Hybrid assembler?**
 > long reads can be used to cover the gaps or ambiguous short reads to improve the genome quality
 - **What is the difference between short and long reads?**
