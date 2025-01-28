@@ -621,3 +621,15 @@ Check mulriqc_report.html
 > **Resource to take help from:**
 > 1. [Guide to bacterial genome assembly](https://github.com/rrwick/Perfect-bacterial-genome-tutorial/wiki)
 > 2. [Perfect-bacterial-genome-tutorial](https://github.com/rrwick/Perfect-bacterial-genome-tutorial/wiki)
+
+**************
+# Day 7 Protocol
+
+## Download the data
+```bash
+curl -L https://ndownloader.figshare.com/files/28965090 -o V_jascida_genomes.tar.gz
+tar -zxvf V_jascida_genomes.tar.gz
+ls V_jascida_genomes
+```
+
+###
