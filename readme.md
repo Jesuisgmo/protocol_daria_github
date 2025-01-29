@@ -757,3 +757,21 @@ jobinfo
 > Core genes: 1502 (6.68%) \
 > Accessory genes: 5630 (25.03%) \
 > Singletons: 6698  (29.78%) 
+
+
+# Day 8 protocol
+- TNOAR - total number of aligned reads
+
+## Differential expression of example samples
+
+*gene: ftsZ*
+![Image](./resourses/ftsZ.png)
+log2 fold change: 5.4 (upregulated)
+**************
+*gene: bioB*
+![Image](./resourses/bioB.png)
+log2 fold change: 4.6 (upregulated)
+**************
+*gene: tkt*
+![Image](./resourses/tkt.png)
+log2 fold change: 3.2 (upregulated)
