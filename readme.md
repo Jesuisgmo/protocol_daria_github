@@ -777,11 +777,94 @@ log2 fold change: 4.6 (upregulated)
 log2 fold change: 3.2 (upregulated)
 
 
+## Our dataset - Methanosarcina mazei strain Gö1 (nitrogen conditions)
+- type I glutamate--ammonia ligase CDS\
+![Image](./resourses/type1.png)
+log2 fold change: -2.93 (downregulated)
 
-Orientation of counted reads relative to the strand location of the annotation	Sequence name	Source	Feature	Start	End	Score	Strand	Frame	Attributes	mut_R1 raw countings	mut_R2 raw countings	wt_R1 raw countings	wt_R2 raw countings	baseMean	log2FoldChange	lfcSE	stat	pvalue	padj
-sense	NC_003901.1	Geneious	CDS	522390	522581	.	+	0	ID=CDS445;Parent=gene445;Name=hypothetical protein CDS;locus_tag=MM_RS02215;old_locus_tag=MM_0410;inference=COORDINATES: similar to AA sequence:RefSeq:WP_011032363.1;note=Derived by automated computational analysis using gene prediction method: Protein Homology.;codon_start=1;transl_table=11;product=hypothetical protein;protein_id=WP_011032363.1;db_xref=GeneID:1478752;translation=MIEHWIEHNDSHIQSFREWAQKAKKDGFLEASEEILEAANKMEEANKLLGKAREGLFHLHEHK;NCBI Feature Key=CDS	1730.0	2101.0	1569.0	1865.0	1857.0858443005	-0.630276327182392	0.162165487758028	-3.88662431135067	0.000101647883616118	0.00152225315406843
-sense	NC_003901.1	Geneious	tRNA	2355931	2355968	.	+	.	ID=tRNA2064a;Parent=gene2064;Name=tRNA-Met;locus_tag=MM_RS10265;old_locus_tag=MM_ZRNA022;product=tRNA-Met;inference=COORDINATES: profile:tRNAscan-SE:1.23;anticodon=(pos:2355965..2355967%2Caa:Met%2Cseq:cat);db_xref=GeneID:2820539;NCBI Feature Key=tRNA;NCBI Join Type=join;ID=6yhrEh/IpJbj9RWmH/a0PiL/Eig.1534768945505.6945	4497.0	4495.5	3498.5	4785.5	4414.34322734558	-0.628397565541385	0.161717971569568	-3.88576210449844	0.000102009365074016	0.00152225315406843
-sense	NC_003901.1	Geneious	CDS	2037622	2038263	.	+	0	ID=CDS1768;Parent=gene1768;Name=hypothetical protein CDS;locus_tag=MM_RS08795;old_locus_tag=MM_1695;inference=COORDINATES: similar to AA sequence:RefSeq:WP_011033637.1;note=Derived by automated computational analysis using gene prediction method: Protein Homology.;codon_start=1;transl_table=11;product=hypothetical protein;protein_id=WP_011033637.1;db_xref=GeneID:1480037;translation=MRKLLFTIIIISILAISVTGCTDTEDASSIPADEAEPSEEVSSADSAISPENETAASEDVITLDRAKEIALAHAGLEETDVTFVKSWLETDDGRQEYEIEFYRGNTEYDYDIDALTGDIVSYDSDAENYSRSDSAQSAGNNTYIGEEKAKSIALAKVSGATESDIRLYLDSEDGKPVYEGSILFNNTEYEFEIDAVTGTVLQWNYEPADDDDR;NCBI Feature Key=CDS	1213.0	1501.1666666666665	1006.0	1372.0	1284.61645754265	-0.586562623775602	0.151488301922653	-3.87199946353014	0.000107946189901032	0.00160258574237686
-sense	NC_003901.1	Geneious	CDS	2958984	2959379	.	-	0	ID=CDS2582;Parent=gene2582;Name=dehydrogenase CDS;locus_tag=MM_RS12855;old_locus_tag=MM_2479;inference=COORDINATES: similar to AA sequence:RefSeq:WP_011034397.1;note=Derived by automated computational analysis using gene prediction method: Protein Homology.;codon_start=1;transl_table=11;product=dehydrogenase;protein_id=WP_011034397.1;db_xref=GeneID:1480821;translation=MTDCDLCGKGIPTVIPVRTYPPLLRFAYPEGVWKGLCETCLDSAQKTYLEVNRNHTSCRRGKCSLCGSKTGVFSVELQIPDFSKGIVRKDVDVCYRCLKLVDEAYIRYKREQIEQDHEQGRIHGHEHVHPH;NCBI Feature Key=CDS	225.5	293.0	224.0	296.0	267.307047353284	-0.743509155538323	0.192170768209295	-3.86900235902976	0.000109281584947387	0.00160697674243849
-sense	NC_003901.1	Geneious	CDS	1012361	1012669	.	-	0	ID=CDS900;Parent=gene900;Name=translation initiation factor CDS;locus_tag=MM_RS04485;old_locus_tag=MM_0858;inference=COORDINATES: similar to AA sequence:RefSeq:WP_013036737.1;note=in yeast this protein is involved in start site selection during the initiation of translation%3B Derived by automated computational analysis using gene prediction method: Protein Homology.;codon_start=1;transl_table=11;product=translation initiation factor;protein_id=WP_011032808.1;db_xref=GeneID:1479200;translation=MSSGMCPVCGLPKELCICEEVAKEQQRITVKVNRRRYGKEVTVVEGFDASEIDLHELSTYLKSKFACGGTVKGNTVELQGNHLTRMKEVLMEKGFSAEQIKN;NCBI Feature Key=CDS	2852.0	3077.3333333333335	2395.0	2983.0	2895.42550124615	-0.628364517427994	0.162416565864248	-3.86884499179225	0.00010935213065989	0.00160697674243849
-![grafik](https://github.com/user-attachments/assets/0830dc96-9714-440d-853f-3c759c2bb432)
+- PstS family phosphate ABC transporter substrate-binding protein\
+![Image](./resourses/pstS.png)
+log2 fold change: -2.9 (downregulated)
+
+- prephenate dehydrogenase
+![Image](./resourses/prephenate.png)
+- log2 fold change: 1.9 (upregulated)
+
+****************
+# Day 9 Protocol - VIROMICS
+## Questions
+
+* How many viruses are in the BGR_140717 sample?
+> 11 Proviruses and 846 viruses
+
+
+<details><summary><b>Finished commands</b></summary>
+  
+```ssh
+grep ">" -c 01_GENOMAD/BGR_140717/BGR_140717_Proviruses_Genomad_Output/proviruses_summary/proviruses_virus.fna
+
+grep ">" -c 01_GENOMAD/BGR_140717/BGR_140717_Viruses_Genomad_Output/BGR_140717_modified_summary/BGR_140717_modified_virus.fna
+```
+</details>
+
+## Questions
+
+* **How many Caudoviricetes viruses in the BGR_***/ sample? Any other viral taxonomies?
+> 614
+
+- Briefly look up and describe these viruses (ds/ss DNA/RNA and hosts (euk/prok)
+
+* **How many High-quality and complete viruses in the BGR_130305** sample
+
+
+<details><summary><b>Finished commands</b></summary>
+  
+```ssh
+grep -c "Caudoviricetes" 02_CHECK_V/BGR_130305/MVP_02_BGR_130305_Filtered_Relaxed_Merged_Genomad_CheckV_Virus_Proviruses_Quality_Summary.tsv
+```
+</details>
+
+## Questions
+
+* **How many Low-Quality/Medium-quality/High-quality/Complete
+> 625 low quality, 
+<details><summary><b>Finished commands</b></summary>
+  
+```ssh
+grep -c "Low-quality" 02_CHECK_V/BGR_***/MVP_02_BGR_***/_Filtered_Relaxed_Merged_Genomad_CheckV_Virus_Proviruses_Quality_Summary.tsv
+```
+</details>
+
+## Questions
+
+* **What is the length of the complete virus? How many viral hallmark genes?
+* **Check how abundant is your complete virus in the different samples (RPKM)? Look into folders `04_READ_MAPPING/Subfolders/BGR_*_CoverM.tsv` and find your viruses.
+* **Create a table and summarize the RPKM value of the virus in the different samples. Or look into folder 05_VOTU_TABLES
+
+## Questions
+* Now let’s look at annotated genes in 06_FUNCTIONAL_ANNOTATION and find the table: 
+`MVP_06_All_Sample_Filtered_Conservative_Merged_Genomad_CheckV_Representative_Virus_Proviruses_Gene_Annotation_GENOMAD_PHROGS_PFAM_Filtered.tsv`
+
+* Now find/filter your complete virus and find the viral hallmark genes with a PHROG annotation (hint: look at the columns).
+
+* **What are typical annotations you see? What could the functions be?  
+
+* **Now look for the category of “moron, auxiliary metabolic gene and host takeover” any toxin genes???? Quickly look up the function of this toxin (hint, vibrio phage and vibrio cholerae host)
+
+*Now let’s look at the binning results. Look at 07_BINNING/07C_vBINS_READ_MAPPING/ and find table `MVP_07_Merged_vRhyme_Outputs_Unfiltered_best_vBins_Memberships_geNomad_CheckV_Summary_read_mapping_information_RPKM_Table.tsv`
+
+
+## Questions
+
+* **How many High-quality viruses after binning in comparison to before binning? (hint: look carefully at the table, it has duplicate entries for bins)
+* **Are any of the identified viral contigs complete circular genomes (based on identifying direct terminal repeat regions on both ends of the genome)?
+
+
+*You can also look at the table  07D_vBINS_vOTUS_TABLES and find table: `MVP_07_Merged_vRhyme_Outputs_Filtered_conservative_best_vBins_Representative_Unbinned_vOTUs_geNomad_CheckV_Summary_read_mapping_information_RPKM_Table.tsv`
+
+
+*Now finally let’s have a look at the potential predicted host of these complete viruses.
+*Look into folder 08_iPHoP and find table: `Host_prediction_to_genome_m90.csv`
+* **What are the predicted hosts for your complete virus? are there multiple predicted hosts? are the hosts distantly related? 
+* if not find 2 examples of viruses with multiple hosts predicted. for virus 1 closely related hosts and for virus 2 distantly related hosts. 
+* Discuss what might be the reasons based on 1) biological reasoning, 2) the prediction method or 3) potential contamination in host MAG that migh result in such a prediction.
