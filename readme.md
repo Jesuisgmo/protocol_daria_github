@@ -807,15 +807,14 @@ grep ">" -c 01_GENOMAD/BGR_140717/BGR_140717_Viruses_Genomad_Output/BGR_140717_m
 ```
 </details>
 
-## Questions
+***********
 
 * **How many Caudoviricetes viruses in the BGR_***/ sample? Any other viral taxonomies?
 > 614
 
 - Briefly look up and describe these viruses (ds/ss DNA/RNA and hosts (euk/prok)
-
-* **How many High-quality and complete viruses in the BGR_130305** sample
-
+- 
+> dsDNA, host is prokaryote
 
 <details><summary><b>Finished commands</b></summary>
   
@@ -824,47 +823,64 @@ grep -c "Caudoviricetes" 02_CHECK_V/BGR_130305/MVP_02_BGR_130305_Filtered_Relaxe
 ```
 </details>
 
-## Questions
+******************
 
-* **How many Low-Quality/Medium-quality/High-quality/Complete
-> 625 low quality, 
+* **How many Low-Quality/Medium-quality/High-quality/Complete viruses in the BGR_130305** sample
+
+> 625 low quality, 0 medium quality, 0 high quality, 0 complete
 <details><summary><b>Finished commands</b></summary>
   
 ```ssh
-grep -c "Low-quality" 02_CHECK_V/BGR_***/MVP_02_BGR_***/_Filtered_Relaxed_Merged_Genomad_CheckV_Virus_Proviruses_Quality_Summary.tsv
+grep -c "Low-quality" 02_CHECK_V/BGR_130305/MVP_02_BGR_130305_Filtered_Relaxed_Merged_Genomad_CheckV_Virus_Proviruses_Quality_Summary.tsv
 ```
 </details>
 
-## Questions
-
+*************
+### Here I switched to BGR_131021 because chose the unlucky low-quality ones before. lmao.
 * **What is the length of the complete virus? How many viral hallmark genes?
+> 46113 bp, 12 viral hallmark genes
 * **Check how abundant is your complete virus in the different samples (RPKM)? Look into folders `04_READ_MAPPING/Subfolders/BGR_*_CoverM.tsv` and find your viruses.
+> BGR_131021_NODE_96_length_46113_cov_32.412567 ------- 154.71898 RPKM
 * **Create a table and summarize the RPKM value of the virus in the different samples. Or look into folder 05_VOTU_TABLES
 
-## Questions
+![grafik](https://github.com/user-attachments/assets/1c689409-500a-4932-9a24-e59b54d55b9b)
+
+**************
+
 * Now let’s look at annotated genes in 06_FUNCTIONAL_ANNOTATION and find the table: 
 `MVP_06_All_Sample_Filtered_Conservative_Merged_Genomad_CheckV_Representative_Virus_Proviruses_Gene_Annotation_GENOMAD_PHROGS_PFAM_Filtered.tsv`
 
 * Now find/filter your complete virus and find the viral hallmark genes with a PHROG annotation (hint: look at the columns).
 
 * **What are typical annotations you see? What could the functions be?  
-
+> 'unknown' is the most common. Functions... probably capsid proteins
 * **Now look for the category of “moron, auxiliary metabolic gene and host takeover” any toxin genes???? Quickly look up the function of this toxin (hint, vibrio phage and vibrio cholerae host)
+> Zot-like toxin - "has the ability to increase mucosal permeability by reversibly affecting the structure of tight junctions" (https://pmc.ncbi.nlm.nih.gov/articles/PMC152047/) 'by interacting with a mammalian cell receptor with subsequent activation of intracellular signaling leading to the disassembly of the intercellular tight junctions' (https://www.jbc.org/article/S0021-9258(19)67052-3/fulltext)
 
+*******************
 *Now let’s look at the binning results. Look at 07_BINNING/07C_vBINS_READ_MAPPING/ and find table `MVP_07_Merged_vRhyme_Outputs_Unfiltered_best_vBins_Memberships_geNomad_CheckV_Summary_read_mapping_information_RPKM_Table.tsv`
 
 
-## Questions
-
-* **How many High-quality viruses after binning in comparison to before binning? (hint: look carefully at the table, it has duplicate entries for bins)
+* **How many High-quality viruses after binning? 
+> 49
 * **Are any of the identified viral contigs complete circular genomes (based on identifying direct terminal repeat regions on both ends of the genome)?
-
+> Yes
 
 *You can also look at the table  07D_vBINS_vOTUS_TABLES and find table: `MVP_07_Merged_vRhyme_Outputs_Filtered_conservative_best_vBins_Representative_Unbinned_vOTUs_geNomad_CheckV_Summary_read_mapping_information_RPKM_Table.tsv`
 
-
+**************************
 *Now finally let’s have a look at the potential predicted host of these complete viruses.
 *Look into folder 08_iPHoP and find table: `Host_prediction_to_genome_m90.csv`
-* **What are the predicted hosts for your complete virus? are there multiple predicted hosts? are the hosts distantly related? 
-* if not find 2 examples of viruses with multiple hosts predicted. for virus 1 closely related hosts and for virus 2 distantly related hosts. 
-* Discuss what might be the reasons based on 1) biological reasoning, 2) the prediction method or 3) potential contamination in host MAG that migh result in such a prediction.
+* What are the predicted hosts for your complete virus? are there multiple predicted hosts? are the hosts distantly related?
+> BGR_140717_NODE_168_length_31258_cov_37.020094	BGR_130829_bin.14.strict	d__Bacteria;p__Bacillota_A;c__Clostridia;o__Tissierellales;f__Peptoniphilaceae;g__;s__
+no mulriple hosts
+* if not find 2 examples of viruses with multiple hosts predicted. for virus 1 closely related hosts and for virus 2 distantly related hosts.
+> BGR_130305_NODE_1097_length_6048_cov_14.323544
+closely related (Bacillus_A cereus_K, Bacillus_A mycoides etc)
+>BGR_130305_NODE_1187_length_5781_cov_4.089591
+distantly related (Clostridium_AE oryzae, Fervidobacterium pennivorans_A, etc)
+
+* Discuss what might be the reasons based on 1) biological reasoning, 2) the prediction method or 3) potential contamination in host MAG that might result in such a prediction.
+> 1) Distant hosts can have similar membrane proteins.
+> 2) The prediction method: only blast is used in my case, may be mistaken binning.
+> 3) Potential contamination in host MAG that might result in such a prediction is an option. Contamination of Clostridium with Fervidobacterium could lead to this (Fervidobacterium is mentioned twice for this virus in the table, so one could assume this is the real host)
