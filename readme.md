@@ -106,16 +106,6 @@ Used this [MD cheat sheet](https://enterprise.github.com/downloads/en/markdown-c
 # Day 3 Protocol
 ## Assembly visualisation
 
-
-```bash
-
-```
-
-
-```bash
-
-```
-
 ![Image](./resourses/assembly_graph.png)
 
 We used Bandage software to open .fastg files (we obtained them after converting the final assembly .fa files).
