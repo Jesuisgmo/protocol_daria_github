@@ -263,7 +263,7 @@ anvi-interactive -p ./merged_profiles/PROFILE.db -c ../mapping/contigs.db -C MET
               MaxBin2:
     ARCHAEA  |          0.8 |          94.74 |          73.68 |          922 |        3144170 |
     How many A R C H A E A bins do you get that are of High Quality? How many B A C T E R I A bins do you get that are of High Quality?
-    21 High Quality bacteria, 0 archaea
+    21 High Quality bacteria, 1 archaea
 
 ********************
 # Day 4 Protocol - Bin refinement
