@@ -124,7 +124,7 @@ We see a lot of small contigs and a small number of big ones (more than 1000 bp)
     What is the total length of the contigs?
 ### N50
 ![Image](./resourses/Nx_plot.pdf.png)
->N50 is low (3014). It is which length
+>N50 is low (3014). It is the sequence length of the shortest contig at 50% of the total assembly length.
 ### Number of contigs
 55837 
 ### Total length
